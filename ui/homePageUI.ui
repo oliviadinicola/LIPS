@@ -53,7 +53,7 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="openHNRPageButton">
     <property name="geometry">
      <rect>
       <x>100</x>
@@ -71,7 +71,7 @@
      <string>Run HNR/Kingston's Algorithm</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="openInferencingPageButton">
     <property name="geometry">
      <rect>
       <x>100</x>
