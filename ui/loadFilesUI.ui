@@ -245,7 +245,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Audio Files (.wav)</string>
+     <string>TextGrid Files (.TextGrid)</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
