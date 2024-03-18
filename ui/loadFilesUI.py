@@ -19,16 +19,41 @@ class Ui_loadFilesPage(QtWidgets.QMainWindow):
         self.cancelButton.clicked.connect(self.closeWindow)
         self.UploadAudioFilesButton.clicked.connect(self.openAudioDialog)
         self.uploadTextGridFilesButton.clicked.connect(self.openTextGridDialog)
+        self.removeAudioFilesButton.clicked.connect(self.removeSelectedAudioFiles)
+        self.removeTextGridFilesButton.clicked.connect(self.removeSelectedTextGridFiles)
+        self.OKButton.clicked.connect(self.handleOK)
 
     def closeWindow(self):
         self.close()
 
     def openAudioDialog(self):
         fname = QFileDialog.getOpenFileName(self, "Open File", "", "WAV File (*.wav)")
+        self.audioFileListWidget.addItem(fname[0])
+        self.audioFileListWidget.show()
 
     def openTextGridDialog(self):
         fname = QFileDialog.getOpenFileName(self, "Open File", "", "TextGrid File (*.TextGrid)")
+        self.textGridFileListWidget.addItem(fname[0])
+        self.textGridFileListWidget.show()
 
+    def removeSelectedAudioFiles(self):
+        listitems = self.audioFileListWidget.selectedItems()
+        if not listitems:
+            return
+        for item in listitems:
+            row = self.audioFileListWidget.row(item)
+            self.audioFileListWidget.takeItem(row)
+
+    def removeSelectedTextGridFiles(self):
+        listitems = self.textGridFileListWidget.selectedItems()
+        if not listitems:
+            return
+        for item in listitems:
+            row = self.textGridFileListWidget.row(item)
+            self.textGridFileListWidget.takeItem(row)
+
+    def handleOK(self):
+        self.close()
 
 
 if __name__ == "__main__":

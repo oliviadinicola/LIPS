@@ -92,7 +92,7 @@
        <height>389</height>
       </rect>
      </property>
-     <widget class="QListWidget" name="listWidget_2">
+     <widget class="QListWidget" name="textGridFileListWidget">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -100,6 +100,9 @@
         <width>351</width>
         <height>391</height>
        </rect>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::ExtendedSelection</enum>
       </property>
      </widget>
     </widget>
@@ -161,7 +164,7 @@
        <height>389</height>
       </rect>
      </property>
-     <widget class="QListWidget" name="listWidget_3">
+     <widget class="QListWidget" name="audioFileListWidget">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -169,6 +172,9 @@
         <width>351</width>
         <height>391</height>
        </rect>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::ExtendedSelection</enum>
       </property>
      </widget>
     </widget>
