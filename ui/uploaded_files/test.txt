@@ -1,0 +1,3 @@
+file	labelNumber	label	seg_bf	seg_aft	lex	seg_bf_dur	seg_bf_max_int	seg_aft_dur	seg_aft_max_int	seg_dur	seg_min_int	seg_mean_int	seg_mean_hnr	int_dif	dur_ratio	new_premin1	new_postmax1	t_new_premin1	t_new_postmax1	
+file	labelNumber	label	seg_bf	seg_aft	lex	seg_bf_dur	seg_bf_max_int	seg_aft_dur	seg_aft_max_int	seg_dur	seg_min_int	seg_mean_int	seg_mean_hnr	int_dif	dur_ratio	new_premin1	new_postmax1	t_new_premin1	t_new_postmax1	
+file	labelNumber	label	seg_bf	seg_aft	lex	seg_bf_dur	seg_bf_max_int	seg_aft_dur	seg_aft_max_int	seg_dur	seg_min_int	seg_mean_int	seg_mean_hnr	int_dif	dur_ratio	new_premin1	new_postmax1	t_new_premin1	t_new_postmax1	

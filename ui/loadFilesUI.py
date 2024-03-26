@@ -28,13 +28,16 @@ class Ui_loadFilesPage(QtWidgets.QMainWindow):
         self.close()
 
     def openAudioDialog(self):
-        fname = QFileDialog.getOpenFileName(self, "Open File", "", "WAV File (*.wav)")
-        self.audioFileListWidget.addItem(fname[0])
+        fnames = QFileDialog.getOpenFileNames(self, "Open File", "", "WAV File (*.wav)")
+        for fname in fnames[0]:
+            self.audioFileListWidget.addItem(fname)
         self.audioFileListWidget.show()
 
     def openTextGridDialog(self):
-        fname = QFileDialog.getOpenFileName(self, "Open File", "", "TextGrid File (*.TextGrid)")
-        self.textGridFileListWidget.addItem(fname[0])
+        fnames = QFileDialog.getOpenFileNames(self, "Open File", "", "TextGrid File (*.TextGrid)")
+        for fname in fnames[0]:
+            self.textGridFileListWidget.addItem(fname)
+
         self.textGridFileListWidget.show()
 
     def removeSelectedAudioFiles(self):

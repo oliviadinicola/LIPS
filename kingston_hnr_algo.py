@@ -16,7 +16,7 @@ offset = 0.050
 
 path = os.path.join('/', directory, output_file_name)
 if os.path.exists(path):
-    os.remove(file_path)
+    os.remove(path)
 
 # Run Praat script with parameters
 praat.run_file("lenition_2nd_1_KTOneBand.praat", directory, output_file_name, segment_file_name,

@@ -53,7 +53,6 @@ class Ui_loadHomePage(QtWidgets.QMainWindow):
             self.listOfFiles.addItem(file_path)
 
 
-
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
