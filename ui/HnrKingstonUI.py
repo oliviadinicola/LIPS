@@ -12,7 +12,7 @@ import datetime
 from PyQt5 import QtWidgets, uic, QtCore
 import os
 from PyQt5.QtWidgets import QFileDialog
-import parselmouth.praat as praat
+import parselmouth
 
 
 class Ui_HnrKingstonPage(QtWidgets.QMainWindow):
@@ -23,10 +23,14 @@ class Ui_HnrKingstonPage(QtWidgets.QMainWindow):
         self.labeledTierComboBox.addItems(["1", "2"])
         self.uploadSegmentFileButton.clicked.connect(self.openSegmentDialog)
         self.runAlgoButton.clicked.connect(self.runScript)
+        self.cancelButton.clicked.connect(self.handleCancel)
 
     def openSegmentDialog(self):
         fname = QFileDialog.getOpenFileName(self, "Open File", "", "Text Files (*.txt)")
         self.segmentFileLabel.setText(fname[0])
+
+    def handleCancel(self):
+        self.close()
 
     def runScript(self):
         # Get input values
@@ -62,7 +66,7 @@ class Ui_HnrKingstonPage(QtWidgets.QMainWindow):
         output_file_name = f"{output_file_name}_{current_time}.txt"
 
         # Run Praat script with parameters
-        praat.run_file("lenition_2nd_1_KTOneBand.praat", directory, output_file_name, os.path.basename(segment_file_name),
+        parselmouth.praat.run_file("lenition_2nd_1_KTOneBand.praat", directory, output_file_name, os.path.basename(segment_file_name),
                        labeled_tier, lexical_tier,
                        freq_left_range, freq_right_range, freq_low_pass_filter,
                        smooth_proportion, f0, time_offset)
