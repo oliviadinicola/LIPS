@@ -12,6 +12,7 @@ from PyQt5 import QtWidgets, uic
 import os
 
 from ui.HnrKingstonUI import Ui_HnrKingstonPage
+from ui.InferencingUI import Ui_InferencingPage
 from ui.loadFilesUI import Ui_loadFilesPage
 
 
@@ -21,6 +22,7 @@ class Ui_loadHomePage(QtWidgets.QMainWindow):
         self.show()
         self.loadFilesButton.clicked.connect(self.openLoadFilesWindow)
         self.openHNRPageButton.clicked.connect(self.openHnrKingstonWindow)
+        self.openInferencingPageButton.clicked.connect(self.openInferencingWindow)
 
     def openLoadFilesWindow(self):
         self.window = QtWidgets.QMainWindow()
@@ -31,6 +33,11 @@ class Ui_loadHomePage(QtWidgets.QMainWindow):
     def openHnrKingstonWindow(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_HnrKingstonPage()
+        self.ui.setupUi()
+
+    def openInferencingWindow(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = Ui_InferencingPage()
         self.ui.setupUi()
 
     def displaySelectedFiles(self, files):

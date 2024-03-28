@@ -15,7 +15,15 @@ from PyQt5.QtWidgets import QFileDialog
 class Ui_InferencingPage(QtWidgets.QMainWindow):
     def setupUi(self):
         uic.loadUi('InferencingUI.ui', self)
+        self.uploadPhonetFilesButton.clicked.connect(self.openFolderDialog)
+        self.uploadFeatureChartButton.clicked.connect(self.openPhonological)
         self.show()
+
+    def openFolderDialog(self):
+        folderpath = QtWidgets.QFileDialog.getExistingDirectory(self, 'Select Folder')
+
+    def openPhonological(self):
+        fname = QFileDialog.getOpenFileName(self, "Open File", "", "*.py")
 
 
 if __name__ == "__main__":
