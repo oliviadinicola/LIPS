@@ -58,7 +58,7 @@ class Ui_HnrKingstonPage(QtWidgets.QMainWindow):
             print(f"Error saving file: {e}")
 
         # Generate a unique filename based on the current date and time
-        current_time = datetime.datetime.now().strftime("%m%d%Y%H%M%S")
+        current_time = datetime.datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
         output_file_name = f"{output_file_name}_{current_time}.txt"
 
         # Run Praat script with parameters
@@ -66,7 +66,7 @@ class Ui_HnrKingstonPage(QtWidgets.QMainWindow):
                        labeled_tier, lexical_tier,
                        freq_left_range, freq_right_range, freq_low_pass_filter,
                        smooth_proportion, f0, time_offset)
-
+        self.close()
 
 if __name__ == "__main__":
     import sys
