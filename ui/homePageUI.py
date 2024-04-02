@@ -24,6 +24,10 @@ class Ui_loadHomePage(QtWidgets.QMainWindow):
         self.openHNRPageButton.clicked.connect(self.openHnrKingstonWindow)
         self.openInferencingPageButton.clicked.connect(self.openInferencingWindow)
 
+        if os.path.exists("uploaded_files/"):
+            shutil.rmtree("uploaded_files/")
+
+
     def openLoadFilesWindow(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_loadFilesPage()

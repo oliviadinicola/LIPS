@@ -9,6 +9,7 @@
 import json
 import os
 import re
+import shutil
 import subprocess
 
 from PyQt5 import QtWidgets, uic, QtCore
@@ -21,6 +22,7 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
         self.uploadPhonetFilesButton.clicked.connect(self.openFolderDialog)
         self.uploadFeatureChartButton.clicked.connect(self.openPhonological)
         self.runAlgoButton.clicked.connect(self.runAlgo)
+        self.cancelButton.clicked.connect(self.handleCancel)
         self.show()
 
     def openFolderDialog(self):
@@ -30,7 +32,7 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
     def openPhonological(self):
         fname = QFileDialog.getOpenFileName(self, "Open File", "", "*.py")
         self.phonologicalChartLabel.setText(fname[0])
-        dict_keys = self.extract_dictionary_keys(fname[0])
+        _, dict_keys = self.extract_dictionary_keys(fname[0])
         for key in dict_keys:
             self.listOfPhonologicalFeatures.addItem(key)
         self.listOfPhonologicalFeatures.show()
@@ -47,7 +49,7 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
             dictionary_str = match.group(0)
             # Extract keys from the dictionary string
             keys = re.findall(r'\'([^\']*)\'', dictionary_str)
-            return keys
+            return dictionary_str, keys
         else:
             return []
 
@@ -61,12 +63,37 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
                               if self.listOfPhonologicalFeatures.item(i).isSelected()]
         selected_phonological_feat_str = json.dumps(selected_phon_feat)
 
+        # Get entire phonological.py file to pass as dict
+        phonological_file_name = self.phonologicalChartLabel.text()
+        directory = 'uploaded_files/'
+        os.makedirs(directory, exist_ok=True)
+
+        # Define the output file path in the output directory
+        output_file_path = os.path.join(directory, os.path.basename(phonological_file_name))
+
+        # Copy the uploaded file to the output directory
+        try:
+            shutil.copy(phonological_file_name, output_file_path)
+        except Exception as e:
+            print(f"Error saving file: {e}")
+
+        # Rename the phonological file
+        new_path = directory + "Phonological.py"
+        shutil.move(output_file_path, new_path)
+
+        phonological = self.phonologicalChartLabel.text()
+        dict, _ = self.extract_dictionary_keys(phonological)
+
         # Define the command to run the other Python script
         command = ["python", "inferencing.py", self.phonetFilePathLabel.text(), self.phonologicalChartLabel.text(),
-                   selected_phonological_feat_str, all_phonological_feat_str, 'uploaded_files/', directory]
+                   selected_phonological_feat_str, dict, 'uploaded_files/']
 
         # Run the command
         subprocess.run(command)
+        self.close()
+
+    def handleCancel(self):
+        self.close()
 
 if __name__ == "__main__":
     import sys

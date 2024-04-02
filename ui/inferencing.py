@@ -13,14 +13,16 @@ from tqdm import tqdm
 EXP_NAME = sys.argv[1]
 phon_temp = sys.argv[2]
 #    phon_temp = Phonological()
-list_phonological = json.loads(sys.argv[4])
+list_phonological_str = sys.argv[4]
+list_phonological = eval(list_phonological_str)
+
 # print(list_phonological.keys())
 
 # quit()
 
 wav_lab_dir = sys.argv[5]
 tgt_dir = sys.argv[5]
-feat_dir = sys.argv[6]
+feat_dir = sys.argv[5]
 phc = json.loads(sys.argv[3])
 
 files = os.listdir(wav_lab_dir)
@@ -101,7 +103,7 @@ def read_textgrid(tginpath, include_empty_intervals_para):
 
 
 # output file
-outpath_fname_path = f"{EXP_NAME}/parse_post_probs_textgrids.tsv"
+outpath_fname_path = "output/parse_post_probs_textgrids.tsv"
 
 # Check to make sure output doesn't already exist and if it does, removes it
 if os.path.isfile(outpath_fname_path):
@@ -149,7 +151,7 @@ for tgtsfile in tqdm(tgtsfiles):
     postprobfile_path = os.path.join(feat_dir, postprobfile)
 
     # open file and read each line
-    with open(postprobfile_path, 'r') as f:
+    with open(postprobfile_path, 'r', encoding='utf-8') as f:
         postproblines = f.readlines()
     postproblines = [i.rstrip() for i in postproblines]
     headerline = postproblines[0]
