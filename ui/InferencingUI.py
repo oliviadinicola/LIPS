@@ -34,6 +34,7 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
         fname = QFileDialog.getOpenFileName(self, "Open File", "", "*.py")
         self.phonologicalChartLabel.setText(fname[0])
         _, dict_keys = self.extract_dictionary_keys(fname[0])
+        self.listOfPhonologicalFeatures.clear()
         for key in dict_keys:
             self.listOfPhonologicalFeatures.addItem(key)
         self.listOfPhonologicalFeatures.show()
