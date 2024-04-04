@@ -6,6 +6,7 @@ import json
 import os, sys, re
 import tgt, operator
 import os.path
+import datetime
 from tqdm import tqdm
 # This is the first step in the inferencing process
 
@@ -102,8 +103,10 @@ def read_textgrid(tginpath, include_empty_intervals_para):
     return tg
 
 
+# Generate a unique filename based on the current date and time
+current_time = datetime.datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
 # output file
-outpath_fname_path = "output/parse_post_probs_textgrids.tsv"
+outpath_fname_path = f"output/parse_post_probs_textgrids_{current_time}.tsv"
 
 # Check to make sure output doesn't already exist and if it does, removes it
 if os.path.isfile(outpath_fname_path):

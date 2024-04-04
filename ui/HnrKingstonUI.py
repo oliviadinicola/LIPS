@@ -24,6 +24,12 @@ class Ui_HnrKingstonPage(QtWidgets.QMainWindow):
         self.uploadSegmentFileButton.clicked.connect(self.openSegmentDialog)
         self.runAlgoButton.clicked.connect(self.runScript)
         self.cancelButton.clicked.connect(self.handleCancel)
+        self.select_option("2")
+
+    def select_option(self, option_text):
+        index = self.labeledTierComboBox.findText(option_text)
+        if index != -1:
+            self.labeledTierComboBox.setCurrentIndex(index)
 
     def openSegmentDialog(self):
         fname = QFileDialog.getOpenFileName(self, "Open File", "", "Text Files (*.txt)")
@@ -42,7 +48,7 @@ class Ui_HnrKingstonPage(QtWidgets.QMainWindow):
         freq_right_range = float(self.rightRangeInput.text())
         freq_low_pass_filter = float(self.lowPassFilterInput.text())
         lexical_tier = self.lexicalTierComboBox.currentText()
-        labeled_tier = self.labeledTierComboBox.currentText()
+        labeled_tier = self.labeledTierComboBox.setCurrentIndex(2)
         directory = 'uploaded_files/'
         segment_file_name = self.segmentFileLabel.text()
 
@@ -63,7 +69,7 @@ class Ui_HnrKingstonPage(QtWidgets.QMainWindow):
 
         # Generate a unique filename based on the current date and time
         current_time = datetime.datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
-        output_file_name = f"{output_file_name}_{current_time}.txt"
+        output_file_name = f"output/{output_file_name}_{current_time}.txt"
 
         # Run Praat script with parameters
         parselmouth.praat.run_file("lenition_2nd_1_KTOneBand.praat", directory, output_file_name, os.path.basename(segment_file_name),

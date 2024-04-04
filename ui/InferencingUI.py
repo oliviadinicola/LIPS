@@ -14,6 +14,7 @@ import subprocess
 
 from PyQt5 import QtWidgets, uic, QtCore
 from PyQt5.QtWidgets import QFileDialog
+from PyQt5.QtCore import Qt
 
 
 class Ui_InferencingPage(QtWidgets.QMainWindow):
@@ -36,7 +37,14 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
         for key in dict_keys:
             self.listOfPhonologicalFeatures.addItem(key)
         self.listOfPhonologicalFeatures.show()
+        self.select_items(["sonorant", "continuant"])
 
+    def select_items(self, items_to_select):
+        for item_text in items_to_select:
+            items = self.listOfPhonologicalFeatures.findItems(item_text, Qt.MatchExactly)
+            if items:
+                item = items[0]
+                item.setSelected(True)
 
     def extract_dictionary_keys(self, file_path):
         with open(file_path, 'r', encoding='utf-8') as file:

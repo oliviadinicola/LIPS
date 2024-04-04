@@ -39,7 +39,7 @@ endfor
 filedelete 'output_file_name$'
 
 # make a header for the file
-fileappend "'directory$''output_file_name$'" file'tab$'labelNumber'tab$'label'tab$'seg_bf'tab$'seg_aft'tab$'lex'tab$'seg_bf_dur'tab$'seg_bf_max_int'tab$'seg_aft_dur'tab$'seg_aft_max_int'tab$'seg_dur'tab$'seg_min_int'tab$'seg_mean_int'tab$'seg_mean_hnr'tab$'int_dif'tab$'dur_ratio'tab$'new_premin1'tab$'new_postmax1'tab$'t_new_premin1'tab$'t_new_postmax1'tab$''newline$'
+fileappend "'output_file_name$'" file'tab$'labelNumber'tab$'label'tab$'seg_bf'tab$'seg_aft'tab$'lex'tab$'seg_bf_dur'tab$'seg_bf_max_int'tab$'seg_aft_dur'tab$'seg_aft_max_int'tab$'seg_dur'tab$'seg_min_int'tab$'seg_mean_int'tab$'seg_mean_hnr'tab$'int_dif'tab$'dur_ratio'tab$'new_premin1'tab$'new_postmax1'tab$'t_new_premin1'tab$'t_new_postmax1'tab$''newline$'
 
 # Make a list of file names and open wav files.
 Create Strings as file list... list 'directory$'*.wav
@@ -175,15 +175,15 @@ seg_mean_hnr = Get mean... 'tmin' 'tmax'
 # write the values and the corresponding times to a text file
 				
 			if n = 1 
-				fileappend "'directory$''output_file_name$'" 'current_file$''tab$''k''tab$''label$''tab$''segbf$''tab$''segaft$''tab$''lex$''tab$''segbf_dur''tab$''segbf_max_int''tab$''segaft_dur''tab$''segaft_max_int''tab$''dur''tab$''seg_min_int''tab$''seg_mean_int''tab$''seg_mean_hnr''tab$''int_dif''tab$''dur_ratio''tab$''new_premin:3''tab$''new_postmax:3''tab$''t_new_premin''tab$''t_new_postmax''tab$'
+				fileappend "'output_file_name$'" 'current_file$''tab$''k''tab$''label$''tab$''segbf$''tab$''segaft$''tab$''lex$''tab$''segbf_dur''tab$''segbf_max_int''tab$''segaft_dur''tab$''segaft_max_int''tab$''dur''tab$''seg_min_int''tab$''seg_mean_int''tab$''seg_mean_hnr''tab$''int_dif''tab$''dur_ratio''tab$''new_premin:3''tab$''new_postmax:3''tab$''t_new_premin''tab$''t_new_postmax''tab$'
 			else
-				fileappend "'directory$''output_file_name$'" 'new_premin:3''tab$''new_postmax:3''tab$''t_new_premin''tab$''t_new_postmax''tab$'
+				fileappend "'output_file_name$'" 'new_premin:3''tab$''new_postmax:3''tab$''t_new_premin''tab$''t_new_postmax''tab$'
 			endif	
 		#select Sound sound_'n'
 		#Remove
 		endfor
 		
-		fileappend "'directory$''output_file_name$'" 'newline$'
+		fileappend "'output_file_name$'" 'newline$'
 		
 		else
 		#do nothing
