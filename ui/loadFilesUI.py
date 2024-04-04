@@ -23,8 +23,10 @@ class Ui_loadFilesPage(QtWidgets.QMainWindow):
         self.removeAudioFilesButton.clicked.connect(self.removeSelectedAudioFiles)
         self.removeTextGridFilesButton.clicked.connect(self.removeSelectedTextGridFiles)
         self.OKButton.clicked.connect(self.handleOK)
+        self.errorMessageLabel.setStyleSheet("color: red; font-size: 16px;")
 
     def closeWindow(self):
+        self.errorMessageLabel.setText("")
         self.close()
 
     def openAudioDialog(self):
@@ -71,8 +73,18 @@ class Ui_loadFilesPage(QtWidgets.QMainWindow):
             corresponding_textgrid = audio_file[:-4] + '.TextGrid'
             if corresponding_textgrid in selected_textgrid_files:
                 all_files.append(corresponding_textgrid)
+                self.errorMessageLabel.setText("")
+            else:
+                self.errorMessageLabel.setText("Audio file " + audio_file + " does not have corresponding TextGrid file!")
+                return
 
-
+        for textgrid_file in selected_textgrid_files:
+            corresponding_audio = textgrid_file[:-9] + '.wav'
+            if corresponding_audio in selected_audio_files:
+                self.errorMessageLabel.setText("")
+            else:
+                self.errorMessageLabel.setText("TextGrid file " + textgrid_file + " does not have corresponding Audio file!")
+                return
 
         self.filesSelected.emit(all_files)
         self.close()
