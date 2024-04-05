@@ -48,7 +48,7 @@ class Ui_HnrKingstonPage(QtWidgets.QMainWindow):
         freq_right_range = float(self.rightRangeInput.text())
         freq_low_pass_filter = float(self.lowPassFilterInput.text())
         lexical_tier = self.lexicalTierComboBox.currentText()
-        labeled_tier = self.labeledTierComboBox.setCurrentIndex(2)
+        labeled_tier = self.labeledTierComboBox.currentText()
         directory = 'uploaded_files/'
         segment_file_name = self.segmentFileLabel.text()
 
