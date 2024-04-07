@@ -28,17 +28,75 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
 
     def openFolderDialog(self):
         folderpath = QtWidgets.QFileDialog.getExistingDirectory(self, 'Select Folder')
-        self.phonetFilePathLabel.setText(folderpath)
+        # Check if the 'MT' directory exists inside the selected directory
+        mt_directory_path = os.path.join(folderpath, 'MT')
+        # Check if the 'phonemes' directory exists inside the selected directory
+        phonemes_directory_path = os.path.join(folderpath, 'phonemes')
+
+        if not os.path.isdir(mt_directory_path):
+            self.phonetFilePathLabel.setStyleSheet("color: red; font-size: 16px;")
+            self.phonetFilePathLabel.setText("No MT folder in uploaded directory. Please upload again.")
+        elif not os.path.isdir(phonemes_directory_path):
+            self.phonetFilePathLabel.setStyleSheet("color: red; font-size: 14px;")
+            self.phonetFilePathLabel.setText("No phonemes folder in uploaded directory. Please upload again.")
+        else:
+            # Check for required files in 'MT' directory
+            mt_files = os.listdir(mt_directory_path)
+            mt_extensions = {os.path.splitext(file)[1] for file in mt_files}
+            mt_extensions_required = {'.npy', '.h5', '.hdf5', '.json'}
+
+            # Check for required extensions in 'MT' directory
+            if not mt_extensions_required.issubset(mt_extensions):
+                self.phonetFilePathLabel.setStyleSheet("color: red; font-size: 16px;")
+                self.phonetFilePathLabel.setText("Missing required files in MT folder. Please upload again.")
+                return
+
+            # Check for std.npy and mu.npy files in 'MT' directory
+            if 'std.npy' not in mt_files or 'mu.npy' not in mt_files:
+                self.phonetFilePathLabel.setStyleSheet("color: red; font-size: 16px;")
+                self.phonetFilePathLabel.setText("Missing required files in MT folder. Please upload again.")
+                return
+
+            # Check for required files in 'phonemes' directory
+            phonemes_files = os.listdir(phonemes_directory_path)
+            phonemes_extensions = {os.path.splitext(file)[1] for file in phonemes_files}
+            phonemes_extensions_required = {'.npy', '.h5', '.hdf5', '.json'}
+
+            # Check for required extensions in 'phonemes' directory
+            if not phonemes_extensions_required.issubset(phonemes_extensions):
+                self.phonetFilePathLabel.setStyleSheet("color: red; font-size: 14px;")
+                self.phonetFilePathLabel.setText("Missing required files in phonemes folder. Please upload again.")
+                return
+
+            # Check for std.npy and mu.npy files in 'phonemes' directory
+            if 'std.npy' not in phonemes_files or 'mu.npy' not in phonemes_files:
+                self.phonetFilePathLabel.setStyleSheet("color: red; font-size: 14px;")
+                self.phonetFilePathLabel.setText("Missing required files in phonemes folder. Please upload again.")
+                return
+
+            # If all checks pass, set folder path
+            self.phonetFilePathLabel.setStyleSheet("color: black; font-size: 16px;")
+            self.phonetFilePathLabel.setText(folderpath)
 
     def openPhonological(self):
         fname = QFileDialog.getOpenFileName(self, "Open File", "", "*.py")
-        self.phonologicalChartLabel.setText(fname[0])
-        _, dict_keys = self.extract_dictionary_keys(fname[0])
-        self.listOfPhonologicalFeatures.clear()
-        for key in dict_keys:
-            self.listOfPhonologicalFeatures.addItem(key)
-        self.listOfPhonologicalFeatures.show()
-        self.select_items(["sonorant", "continuant"])
+        try:
+            dictionary_str, dict_keys = self.extract_dictionary_keys(fname[0])
+
+            if dictionary_str and dict_keys:
+                self.phonologicalChartLabel.setStyleSheet("color: black; font-size: 16px;")
+                self.phonologicalChartLabel.setText(fname[0])
+                self.listOfPhonologicalFeatures.clear()
+                for key in dict_keys:
+                    self.listOfPhonologicalFeatures.addItem(key)
+                self.listOfPhonologicalFeatures.show()
+                self.select_items(["sonorant", "continuant"])
+            else:
+                self.phonologicalChartLabel.setStyleSheet("color: red; font-size: 16px;")
+                self.phonologicalChartLabel.setText("File must contain a valid dictionary. Please upload again.")
+        except Exception as e:
+            self.phonologicalChartLabel.setStyleSheet("color: red; font-size: 16px;")
+            self.phonologicalChartLabel.setText("File must contain a valid dictionary. Please upload again.")
 
     def select_items(self, items_to_select):
         for item_text in items_to_select:
@@ -61,6 +119,7 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
             return dictionary_str, keys
         else:
             return []
+
 
     def runAlgo(self):
         directory = 'posterior_probs/'
