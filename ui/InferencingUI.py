@@ -12,7 +12,7 @@ import re
 import shutil
 import subprocess
 
-from PyQt5 import QtWidgets, uic, QtCore
+from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtCore import Qt
 
@@ -125,7 +125,6 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
         directory = 'posterior_probs/'
         os.makedirs(directory, exist_ok=True)
         all_phonological_feat = [self.listOfPhonologicalFeatures.item(i).text() for i in range(self.listOfPhonologicalFeatures.count())]
-        all_phonological_feat_str = json.dumps(all_phonological_feat)
         selected_phon_feat = [self.listOfPhonologicalFeatures.item(i).text()
                               for i in range(self.listOfPhonologicalFeatures.count())
                               if self.listOfPhonologicalFeatures.item(i).isSelected()]
