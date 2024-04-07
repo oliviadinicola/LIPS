@@ -24,7 +24,11 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
         self.uploadFeatureChartButton.clicked.connect(self.openPhonological)
         self.runAlgoButton.clicked.connect(self.runAlgo)
         self.cancelButton.clicked.connect(self.handleCancel)
+        self.enableRunButton(False)
         self.show()
+
+    def enableRunButton(self, enable):
+        self.runAlgoButton.setEnabled(enable)
 
     def openFolderDialog(self):
         folderpath = QtWidgets.QFileDialog.getExistingDirectory(self, 'Select Folder')
@@ -36,9 +40,11 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
         if not os.path.isdir(mt_directory_path):
             self.phonetFilePathLabel.setStyleSheet("color: red; font-size: 16px;")
             self.phonetFilePathLabel.setText("No MT folder in uploaded directory. Please upload again.")
+            self.enableRunButton(False)
         elif not os.path.isdir(phonemes_directory_path):
             self.phonetFilePathLabel.setStyleSheet("color: red; font-size: 14px;")
             self.phonetFilePathLabel.setText("No phonemes folder in uploaded directory. Please upload again.")
+            self.enableRunButton(False)
         else:
             # Check for required files in 'MT' directory
             mt_files = os.listdir(mt_directory_path)
@@ -49,12 +55,14 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
             if not mt_extensions_required.issubset(mt_extensions):
                 self.phonetFilePathLabel.setStyleSheet("color: red; font-size: 16px;")
                 self.phonetFilePathLabel.setText("Missing required files in MT folder. Please upload again.")
+                self.enableRunButton(False)
                 return
 
             # Check for std.npy and mu.npy files in 'MT' directory
             if 'std.npy' not in mt_files or 'mu.npy' not in mt_files:
                 self.phonetFilePathLabel.setStyleSheet("color: red; font-size: 16px;")
                 self.phonetFilePathLabel.setText("Missing required files in MT folder. Please upload again.")
+                self.enableRunButton(False)
                 return
 
             # Check for required files in 'phonemes' directory
@@ -66,17 +74,21 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
             if not phonemes_extensions_required.issubset(phonemes_extensions):
                 self.phonetFilePathLabel.setStyleSheet("color: red; font-size: 14px;")
                 self.phonetFilePathLabel.setText("Missing required files in phonemes folder. Please upload again.")
+                self.enableRunButton(False)
                 return
 
             # Check for std.npy and mu.npy files in 'phonemes' directory
             if 'std.npy' not in phonemes_files or 'mu.npy' not in phonemes_files:
                 self.phonetFilePathLabel.setStyleSheet("color: red; font-size: 14px;")
                 self.phonetFilePathLabel.setText("Missing required files in phonemes folder. Please upload again.")
+                self.enableRunButton(False)
                 return
 
             # If all checks pass, set folder path
             self.phonetFilePathLabel.setStyleSheet("color: black; font-size: 16px;")
             self.phonetFilePathLabel.setText(folderpath)
+            if self.phonologicalChartLabel.text() != "File must contain a valid dictionary. Please upload again.":
+                self.enableRunButton(True)
 
     def openPhonological(self):
         fname = QFileDialog.getOpenFileName(self, "Open File", "", "*.py")
@@ -91,12 +103,18 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
                     self.listOfPhonologicalFeatures.addItem(key)
                 self.listOfPhonologicalFeatures.show()
                 self.select_items(["sonorant", "continuant"])
+                if "Please upload again" not in self.phonetFilePathLabel.text():
+                    self.enableRunButton(True)
             else:
                 self.phonologicalChartLabel.setStyleSheet("color: red; font-size: 16px;")
                 self.phonologicalChartLabel.setText("File must contain a valid dictionary. Please upload again.")
+                self.listOfPhonologicalFeatures.clear()
+                self.enableRunButton(False)
         except Exception as e:
             self.phonologicalChartLabel.setStyleSheet("color: red; font-size: 16px;")
             self.phonologicalChartLabel.setText("File must contain a valid dictionary. Please upload again.")
+            self.listOfPhonologicalFeatures.clear()
+            self.enableRunButton(False)
 
     def select_items(self, items_to_select):
         for item_text in items_to_select:
