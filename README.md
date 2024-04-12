@@ -13,7 +13,7 @@ Or download a zip archive.
 ### Requirements
 See `requirements.txt` for the full list of requirements. The best way to install these requirements is using [pip](https://packaging.python.org/en/latest/tutorials/installing-packages/#use-pip-for-installing) and a [virtual environment](https://docs.python.org/3/tutorial/venv.html) (like [venv](https://docs.python.org/3/library/venv.html)).
 
-*Make sure to substitute <name_of_vev> with an actual name for your environment.*
+*Make sure to substitute <name_of_vev> with an actual name of your environment.*
 
     python3 -m venv <name_of_venv>
     source <name_of_venv>/bin/activate
