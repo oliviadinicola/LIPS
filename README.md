@@ -43,3 +43,10 @@ This folder contains sample test data for you to experiment with. However, you c
 
 ### `example_gujarati_model/` Folder
 This contains an example model trained through Phonet on the Gujarati language to use for the inferencing algorithm. You can use any Phonet model that you have previously trained. However, as seen with this example model, ensure the directory contains both an `MT/` directory and `phonemes/` directory.
+
+## LIPS Interface
+![image](https://github.com/oliviadinicola/LIPS/assets/67873975/440fc9be-332a-4546-9c33-0e0f95a453ba)
+![image](https://github.com/oliviadinicola/LIPS/assets/67873975/2c003032-1d84-4aba-9532-acf1211cf3bd)
+![image](https://github.com/oliviadinicola/LIPS/assets/67873975/1c9f78b7-f448-4adb-823c-2afe5491e392)
+
+
