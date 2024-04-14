@@ -27,7 +27,36 @@ class Ui_HnrKingstonPage(QtWidgets.QMainWindow):
         self.uploadSegmentFileButton.clicked.connect(self.openSegmentDialog)
         self.runAlgoButton.clicked.connect(self.runScript)
         self.cancelButton.clicked.connect(self.handleCancel)
+        self.saveParametersButton.clicked.connect(self.saveParams)
         self.select_option("2")
+
+    def saveParams(self):
+        f0min = self.f0MinimumInput.text()
+        timeOffset = self.timeOffsetInput.text()
+        smoothProp = self.smoothProportionInput.text()
+        outputFileName = self.outputFileNameInput.text()
+        segmentFileName = self.segmentFileLabel.text()
+        leftRange = self.leftRangeInput.text()
+        rightRange = self.rightRangeInput.text()
+        lowPassFilter = self.lowPassFilterInput.text()
+        lexicalTier = self.lexicalTierComboBox.currentText()
+        labeledTier = self.labeledTierComboBox.currentText()
+
+        current_time = datetime.datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
+        file_path = "saved_parameters_hnr/parameters_" + current_time + ".txt"
+        with open(file_path, 'w') as file:
+            file.write(f0min + "\n")
+            file.write(timeOffset + "\n")
+            file.write(smoothProp + "\n")
+            file.write(outputFileName + "\n")
+            file.write(segmentFileName + "\n")
+            file.write(leftRange + "\n")
+            file.write(rightRange + "\n")
+            file.write(lowPassFilter+ "\n")
+            file.write(lexicalTier + "\n")
+            file.write(labeledTier + "\n")
+        self.saveParamsLabel.setText(f"Parameters saved to {file_path}")
+
 
     def validateInputs(self):
         invalid_inputs = []

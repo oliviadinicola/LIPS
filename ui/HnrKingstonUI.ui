@@ -38,11 +38,14 @@
    <widget class="QLineEdit" name="f0MinimumInput">
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>250</x>
       <y>100</y>
       <width>111</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhDigitsOnly</set>
     </property>
     <property name="text">
      <string/>
@@ -53,7 +56,7 @@
      <rect>
       <x>80</x>
       <y>100</y>
-      <width>121</width>
+      <width>161</width>
       <height>41</height>
      </rect>
     </property>
@@ -63,7 +66,7 @@
      </font>
     </property>
     <property name="text">
-     <string>F0 Minimum:</string>
+     <string>F0 Minimum (Hz):</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">
@@ -71,7 +74,7 @@
      <rect>
       <x>80</x>
       <y>160</y>
-      <width>121</width>
+      <width>161</width>
       <height>41</height>
      </rect>
     </property>
@@ -81,13 +84,13 @@
      </font>
     </property>
     <property name="text">
-     <string>Time Offset:</string>
+     <string>Time Offset (ms):</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="timeOffsetInput">
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>250</x>
       <y>160</y>
       <width>111</width>
       <height>41</height>
@@ -213,7 +216,7 @@
      <string>Run Algorithm</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="clearParametersButton">
+   <widget class="QPushButton" name="saveParametersButton">
     <property name="geometry">
      <rect>
       <x>330</x>
@@ -228,7 +231,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Clear Parameters</string>
+     <string>Save Parameters</string>
     </property>
    </widget>
    <widget class="QPushButton" name="loadParametersButton">
@@ -282,7 +285,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Left Range:</string>
+     <string>Left Range (Hz):</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_9">
@@ -300,7 +303,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Right Range:</string>
+     <string>Right Range (Hz):</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_10">
@@ -308,7 +311,7 @@
      <rect>
       <x>280</x>
       <y>510</y>
-      <width>171</width>
+      <width>191</width>
       <height>41</height>
      </rect>
     </property>
@@ -318,7 +321,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Low Pass Filter:</string>
+     <string>Low Pass Filter (Hz):</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_11">
@@ -360,7 +363,7 @@
    <widget class="QLineEdit" name="leftRangeInput">
     <property name="geometry">
      <rect>
-      <x>400</x>
+      <x>440</x>
       <y>390</y>
       <width>111</width>
       <height>41</height>
@@ -373,7 +376,7 @@
    <widget class="QLineEdit" name="rightRangeInput">
     <property name="geometry">
      <rect>
-      <x>400</x>
+      <x>450</x>
       <y>450</y>
       <width>111</width>
       <height>41</height>
@@ -386,7 +389,7 @@
    <widget class="QLineEdit" name="lowPassFilterInput">
     <property name="geometry">
      <rect>
-      <x>420</x>
+      <x>470</x>
       <y>510</y>
       <width>111</width>
       <height>41</height>
@@ -442,12 +445,33 @@
       <height>31</height>
      </rect>
     </property>
+    <property name="currentIndex">
+     <number>-1</number>
+    </property>
    </widget>
    <widget class="QLabel" name="segmentFileLabel">
     <property name="geometry">
      <rect>
       <x>400</x>
       <y>340</y>
+      <width>691</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="saveParamsLabel">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>680</y>
       <width>691</width>
       <height>41</height>
      </rect>

@@ -1,0 +1,8 @@
+100
+0.05
+0.1
+test
+C:/Users/olivi/source/repos/LIPS/obstruents.txt
+0
+400
+50
