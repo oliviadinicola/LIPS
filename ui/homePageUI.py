@@ -36,7 +36,6 @@ class Ui_loadHomePage(QtWidgets.QMainWindow):
         if os.path.exists("uploaded_files/"):
             shutil.rmtree("uploaded_files/")
 
-
     def openLoadFilesWindow(self):
         self.errorMessageLabelHNR.setText("")
         self.errorMessageLabelInferencing.setText("")
@@ -52,6 +51,7 @@ class Ui_loadHomePage(QtWidgets.QMainWindow):
             self.ui = Ui_HnrKingstonPage()
             self.ui.setupUi()
         else:
+            # Error handling
             self.errorMessageLabelHNR.setText("Please upload files before running algorithm!")
 
     def openInferencingWindow(self):
@@ -61,6 +61,7 @@ class Ui_loadHomePage(QtWidgets.QMainWindow):
             self.ui = Ui_InferencingPage()
             self.ui.setupUi()
         else:
+            # Error handling
             self.errorMessageLabelInferencing.setText("Please upload files before running algorithm!")
 
 

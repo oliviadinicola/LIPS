@@ -13,7 +13,7 @@ import shutil
 import subprocess
 
 from PyQt5 import QtWidgets, uic
-from PyQt5.QtWidgets import QFileDialog
+from PyQt5.QtWidgets import QFileDialog, QMessageBox, QProgressDialog
 from PyQt5.QtCore import Qt
 
 
@@ -37,6 +37,7 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
         # Check if the 'phonemes' directory exists inside the selected directory
         phonemes_directory_path = os.path.join(folderpath, 'phonemes')
 
+        # Error handling
         if not os.path.isdir(mt_directory_path):
             self.phonetFilePathLabel.setStyleSheet("color: red; font-size: 16px;")
             self.phonetFilePathLabel.setText("No MT folder in uploaded directory. Please upload again.")
@@ -105,11 +106,13 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
                 self.select_items(["sonorant", "continuant"])
                 if "Please upload again" not in self.phonetFilePathLabel.text():
                     self.enableRunButton(True)
+            # Error handling
             else:
                 self.phonologicalChartLabel.setStyleSheet("color: red; font-size: 16px;")
                 self.phonologicalChartLabel.setText("File must contain a valid dictionary. Please upload again.")
                 self.listOfPhonologicalFeatures.clear()
                 self.enableRunButton(False)
+        # Error handling
         except Exception as e:
             self.phonologicalChartLabel.setStyleSheet("color: red; font-size: 16px;")
             self.phonologicalChartLabel.setText("File must contain a valid dictionary. Please upload again.")
@@ -140,9 +143,9 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
 
 
     def runAlgo(self):
+        # Output directory
         directory = 'posterior_probs/'
         os.makedirs(directory, exist_ok=True)
-        all_phonological_feat = [self.listOfPhonologicalFeatures.item(i).text() for i in range(self.listOfPhonologicalFeatures.count())]
         selected_phon_feat = [self.listOfPhonologicalFeatures.item(i).text()
                               for i in range(self.listOfPhonologicalFeatures.count())
                               if self.listOfPhonologicalFeatures.item(i).isSelected()]
@@ -173,8 +176,27 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
         command = ["python", "inferencing.py", self.phonetFilePathLabel.text(), self.phonologicalChartLabel.text(),
                    selected_phonological_feat_str, dict, 'uploaded_files/']
 
+        # Show progress dialog indicating the algorithm is running
+        progress_dialog = QProgressDialog("Running Algorithm...", None, 0, 0, self)
+        progress_dialog.setWindowModality(Qt.WindowModal)
+        progress_dialog.setCancelButton(None)
+        progress_dialog.setWindowTitle("Algorithm is running. This may take a few minutes.")
+        progress_dialog.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
+        progress_dialog.setMinimumDuration(0)
+        progress_dialog.setValue(0)
+        progress_dialog.resize(400,50)
+
+        progress_dialog.show()
+
         # Run the command
         subprocess.run(command)
+
+        # Close the progress dialog after completion
+        progress_dialog.close()
+
+        # Show dialog box indicating completion
+        QMessageBox.information(self, "Algorithm Completed", "The algorithm is done. Output is saved to the output/ folder.")
+
         self.close()
 
     def handleCancel(self):

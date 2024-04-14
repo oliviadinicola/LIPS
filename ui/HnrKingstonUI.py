@@ -9,12 +9,13 @@
 import shutil
 import datetime
 
-from PyQt5 import QtWidgets, uic, QtCore
+from PyQt5 import QtWidgets, uic
 import os
 
 from PyQt5.QtCore import QRegExp
-from PyQt5.QtGui import QIntValidator, QDoubleValidator, QRegExpValidator
-from PyQt5.QtWidgets import QFileDialog, QLineEdit, QMessageBox
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QDoubleValidator, QRegExpValidator
+from PyQt5.QtWidgets import QFileDialog, QMessageBox, QProgressDialog
 import parselmouth
 
 
@@ -114,7 +115,19 @@ class Ui_HnrKingstonPage(QtWidgets.QMainWindow):
 
             # Generate a unique filename based on the current date and time
             current_time = datetime.datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
-            output_file_name = f"{output_file_name}_{current_time}.txt"
+            output_file_name = f"output/{output_file_name}_{current_time}.txt"
+
+            # Show progress dialog indicating the algorithm is running
+            progress_dialog = QProgressDialog("Running Algorithm...", None, 0, 0, self)
+            progress_dialog.setWindowModality(Qt.WindowModal)
+            progress_dialog.setCancelButton(None)
+            progress_dialog.setWindowTitle("Algorithm is running. This may take a few minutes.")
+            progress_dialog.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
+            progress_dialog.setMinimumDuration(0)
+            progress_dialog.setValue(0)
+            progress_dialog.resize(400, 50)
+
+            progress_dialog.show()
 
             # Run Praat script with parameters
             parselmouth.praat.run_file("lenition_2nd_1_KTOneBand.praat", directory, output_file_name,
@@ -122,6 +135,14 @@ class Ui_HnrKingstonPage(QtWidgets.QMainWindow):
                                        labeled_tier, lexical_tier,
                                        freq_left_range, freq_right_range, freq_low_pass_filter,
                                        smooth_proportion, f0, time_offset)
+
+            # Close the progress dialog after completion
+            progress_dialog.close()
+
+            # Show dialog box indicating completion
+            QMessageBox.information(self, "Algorithm Completed",
+                                    "The algorithm is done. Output is saved to the output/ folder.")
+
             self.close()
 
 if __name__ == "__main__":
