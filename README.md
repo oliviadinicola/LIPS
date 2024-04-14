@@ -20,4 +20,3 @@ See `requirements.txt` for the full list of requirements. The best way to instal
     pip install -r requirements.txt`
 
 ## Project Structure & Software Implementation
-
