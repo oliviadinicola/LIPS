@@ -46,6 +46,7 @@ This contains an example model trained through Phonet on the Gujarati language t
 
 ## LIPS Interface
 ![image](https://github.com/oliviadinicola/LIPS/assets/67873975/440fc9be-332a-4546-9c33-0e0f95a453ba)
+![image](https://github.com/oliviadinicola/LIPS/assets/67873975/c83a04b4-4ff3-4984-9e46-063c9635c2ce)
 ![image](https://github.com/oliviadinicola/LIPS/assets/67873975/2c003032-1d84-4aba-9532-acf1211cf3bd)
 ![image](https://github.com/oliviadinicola/LIPS/assets/67873975/1c9f78b7-f448-4adb-823c-2afe5491e392)
 
