@@ -15,7 +15,7 @@ Either clone the [git](https://git-scm.com/) repository:
 
 `git clone https://github.com/oliviadinicola/LIPS.git`
 
-Or download a zip archive.
+Or [download a zip archive](https://github.com/oliviadinicola/LIPS/archive/refs/heads/main.zip).
 
 ### Requirements
 See `requirements.txt` for the full list of requirements. The best way to install these requirements is using [pip](https://packaging.python.org/en/latest/tutorials/installing-packages/#use-pip-for-installing) and a [virtual environment](https://docs.python.org/3/tutorial/venv.html) (like [venv](https://docs.python.org/3/library/venv.html)).
