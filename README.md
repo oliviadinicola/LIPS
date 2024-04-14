@@ -1,7 +1,7 @@
 # Lenition Integrated Python System (LIPS)
 
 ## Description
-LIPS is a unified Python-based graphical user interface (GUI) to streamline the measurement of lenition, a linguistic phenomenon involving the weakening of a consonant production. Traditionally, various lenition algorithms like Harmonic-to-Noise Ratio (HNR) are applied separately to audio data using various Praat and Python scripts, resulting in a tedious, inefficient, and irreproducible process. Our solution integrates these algorithms seamlessly within a single GUI, eliminating the need for researchers to have technical command-line expertise. This user-friendly interface empowers researchers to effortlessly run Kingston/HNR metrics and the inferencing algorithm on data, offering a more efficient alternative to the current approach.
+LIPS is a unified Python-based graphical user interface (GUI) to streamline the measurement of lenition, a linguistic phenomenon involving the weakening of a consonant production. Traditionally, various lenition algorithms like Harmonic-to-Noise Ratio (HNR) are applied separately to audio data using various Praat and Python scripts, resulting in a tedious, inefficient, and irreproducible process. Our solution integrates lenition algorithms seamlessly within a single GUI, eliminating the need for researchers to have technical command-line expertise. This user-friendly interface empowers researchers to effortlessly run Kingston/HNR metrics and the inferencing algorithm on audio & TextGrid data, offering a more efficient alternative to the current approach.
 
 ### About the Algorithms
 #### Kingston/HNR
@@ -35,11 +35,11 @@ Download [Pycharm Community Edition](https://www.jetbrains.com/pycharm/download/
 
 ### `ui/` Folder Structure
 * `output/`: where the results from the Kingston/HNR and inferencing algorithm will be saved to
-* `saved_parameters_hnr/`: where any parameters are saved from the user clicked the "Save Parameters" button on the Kingston/HNR algorithm page
-* `saved_parameters_inference/`: where any parameters are saved from the user clicked the "Save Parameters" button on the Inferencing algorithm page
+* `saved_parameters_hnr/`: where any parameters are saved from the user clicking the "Save Parameters" button on the Kingston/HNR algorithm page
+* `saved_parameters_inference/`: where any parameters are saved from the user clicking the "Save Parameters" button on the Inferencing algorithm page
 
 ### `test_data/` Folder
-This folder contains sample test data for you to experiment with. However, you can use your own data as well that is saved in any location on your computer.
+This folder contains sample test data for you to experiment with. However, you can use your own data as well that is saved in any location on your computer as long as the audio files have a `.wav` extension and textgrids have a `.TextGrid` extension.
 
 ### `example_gujarati_model/` Folder
 This contains an example model trained through Phonet on the Gujarati language to use for the inferencing algorithm. You can use any Phonet model that you have previously trained. However, as seen with this example model, ensure the directory contains both an `MT/` directory and `phonemes/` directory.
