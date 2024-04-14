@@ -1,0 +1,4 @@
+C:/git/LIPS/guj_model
+C:/git/LIPS/guj_model/step2_Phonological_revised.py
+sonorant
+continuant

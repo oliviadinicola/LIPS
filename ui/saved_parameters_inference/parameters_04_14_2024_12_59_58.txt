@@ -1,0 +1,3 @@
+C:/git/LIPS/guj_model
+C:/git/LIPS/guj_model/step2_Phonological_revised.py
+[<PyQt5.QtWidgets.QListWidgetItem object at 0x000001EDD4732C10>, <PyQt5.QtWidgets.QListWidgetItem object at 0x000001EDD49420D0>]

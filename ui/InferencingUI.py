@@ -11,6 +11,7 @@ import os
 import re
 import shutil
 import subprocess
+import datetime
 
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import QFileDialog, QMessageBox, QProgressDialog
@@ -24,8 +25,61 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
         self.uploadFeatureChartButton.clicked.connect(self.openPhonological)
         self.runAlgoButton.clicked.connect(self.runAlgo)
         self.cancelButton.clicked.connect(self.handleCancel)
+        self.saveParametersButton_2.clicked.connect(self.saveParams)
+        self.loadParametersButton_2.clicked.connect(self.loadParams)
         self.enableRunButton(False)
         self.show()
+
+    def loadParams(self):
+        # Get the file path selected by the user
+        self.phonetFilePathLabel.setStyleSheet("color: black; font-size: 16px;")
+        self.phonologicalChartLabel.setStyleSheet("color: black; font-size: 16px;")
+
+        file_path, _ = QFileDialog.getOpenFileName(self, "Open File", "", "Text Files (*.txt)")
+
+        # Check if a file was selected
+        if file_path:
+            # Read the parameters from the file
+            with open(file_path, 'r') as file:
+                lines = file.readlines()
+
+                # Extract the parameters from each line and populate the UI fields
+                if len(lines) >= 3:
+                    model = lines[0].strip()
+                    phon_file = lines[1].strip()
+                    selected_feats = [line.strip() for line in lines[2:]]
+
+                    # Set values in the UI
+                    self.phonetFilePathLabel.setText(model)
+                    self.phonologicalChartLabel.setText(phon_file)
+                    dictionary_str, dict_keys = self.extract_dictionary_keys(phon_file)
+
+                    if dictionary_str and dict_keys:
+                        self.listOfPhonologicalFeatures.clear()
+                        for key in dict_keys:
+                            self.listOfPhonologicalFeatures.addItem(key)
+                        self.listOfPhonologicalFeatures.show()
+                        self.select_items(selected_feats)
+
+                    # Enable the run button if necessary
+                    if model and phon_file and selected_feats:
+                        self.enableRunButton(True)
+                else:
+                    QMessageBox.warning(self, "Error", "Invalid parameter file format.")
+
+    def saveParams(self):
+        model = self.phonetFilePathLabel.text()
+        phon_file = self.phonologicalChartLabel.text()
+        selected_feat = [item.text() for item in self.listOfPhonologicalFeatures.selectedItems()]
+
+        current_time = datetime.datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
+        file_path = "saved_parameters_inference/parameters_" + current_time + ".txt"
+        with open(file_path, 'w') as file:
+            file.write(model + "\n")
+            file.write(phon_file + "\n")
+            for feat in selected_feat:
+                file.write(feat + "\n")
+        self.saveParamsLabel_3.setText(f"Parameters saved to {file_path}")
 
     def enableRunButton(self, enable):
         self.runAlgoButton.setEnabled(enable)
