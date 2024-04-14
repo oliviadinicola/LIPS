@@ -3,8 +3,12 @@
 ## Description
 LIPS is a unified Python-based graphical user interface (GUI) to streamline the measurement of lenition, a linguistic phenomenon involving the weakening of a consonant production. Traditionally, various lenition algorithms like Harmonic-to-Noise Ratio (HNR) are applied separately to audio data using various Praat and Python scripts, resulting in a tedious, inefficient, and irreproducible process. Our solution integrates these algorithms seamlessly within a single GUI, eliminating the need for researchers to have technical command-line expertise. This user-friendly interface empowers researchers to effortlessly run Kingston/HNR metrics and the inferencing algorithm on data, offering a more efficient alternative to the current approach.
 
-## About the Algorithms
+### About the Algorithms
+#### Kingston/HNR
+This algorithm is adapted from [Christian DiCanio's lenition algorithm](https://www.acsu.buffalo.edu/~cdicanio/scripts/Kingston_lenition_2.praat). It calculates HNR, a measure that quantifies the level of additional noise present in the vocal signal. Essentially, the more lenited a segment, the more vowel-like it is, meaning a higher HNR. It also calculates measures used by John Kingston in his [paper](http://www.lingref.com/cpp/lasp/3/paper1711.pdf): intensity difference, mean intensity, and relative duration.
 
+#### Inferencing
+This algorithm is used for the inferencing process after training a [Phonet](https://github.com/jcvasquezc/phonet) model. You will use the output Phonet model and corresponding phonological feature file as input to this algorithm (more information below).
 
 ## Installation
 Either clone the [git](https://git-scm.com/) repository:
