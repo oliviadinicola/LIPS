@@ -1,0 +1,1 @@
+All output from the Kingston/HNR and inference algorithm will be saved in this directory.
