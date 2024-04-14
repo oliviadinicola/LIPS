@@ -29,7 +29,8 @@ class Ui_HnrKingstonPage(QtWidgets.QMainWindow):
         self.runAlgoButton.clicked.connect(self.runScript)
         self.cancelButton.clicked.connect(self.handleCancel)
         self.saveParametersButton.clicked.connect(self.saveParams)
-        self.select_option("2")
+        self.loadParametersButton.clicked.connect(self.loadParams)
+        self.select_option_labeled("2")
 
     def saveParams(self):
         f0min = self.f0MinimumInput.text()
@@ -58,6 +59,21 @@ class Ui_HnrKingstonPage(QtWidgets.QMainWindow):
             file.write(labeledTier + "\n")
         self.saveParamsLabel.setText(f"Parameters saved to {file_path}")
 
+    def loadParams(self):
+        fname, _ = QFileDialog.getOpenFileName(self, "Open File", "saved_parameters_hnr/", "Text File (*.txt)")
+        with open(fname, 'r') as file:
+            lines = file.readlines()
+            if lines:
+                self.f0MinimumInput.setText(lines[0].strip())
+                self.timeOffsetInput.setText(lines[1].strip())
+                self.smoothProportionInput.setText(lines[2].strip())
+                self.outputFileNameInput.setText(lines[3].strip())
+                self.segmentFileLabel.setText(lines[4].strip())
+                self.leftRangeInput.setText(lines[5].strip())
+                self.rightRangeInput.setText(lines[6].strip())
+                self.lowPassFilterInput.setText(lines[7].strip())
+                self.select_option_lexical(lines[8].strip())
+                self.select_option_labeled(lines[9].strip())
 
     def validateInputs(self):
         invalid_inputs = []
@@ -100,10 +116,15 @@ class Ui_HnrKingstonPage(QtWidgets.QMainWindow):
         else:
             return True
 
-    def select_option(self, option_text):
+    def select_option_labeled(self, option_text):
         index = self.labeledTierComboBox.findText(option_text)
         if index != -1:
             self.labeledTierComboBox.setCurrentIndex(index)
+
+    def select_option_lexical(self, option_text):
+        index = self.lexicalTierComboBox.findText(option_text)
+        if index != -1:
+            self.lexicalTierComboBox.setCurrentIndex(index)
 
     def openSegmentDialog(self):
         fname = QFileDialog.getOpenFileName(self, "Open File", "", "Text Files (*.txt)")
