@@ -21,3 +21,4 @@ See `requirements.txt` for the full list of requirements. The best way to instal
 
 ## Project Structure & Software Implementation
 
+add: they must upload phon file outside of ui folder -- must be same name just edit it
