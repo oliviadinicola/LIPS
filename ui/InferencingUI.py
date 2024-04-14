@@ -32,8 +32,6 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
 
     def loadParams(self):
         # Get the file path selected by the user
-        self.phonetFilePathLabel.setStyleSheet("color: black; font-size: 16px;")
-        self.phonologicalChartLabel.setStyleSheet("color: black; font-size: 16px;")
 
         file_path, _ = QFileDialog.getOpenFileName(self, "Open File", "", "Text Files (*.txt)")
 
@@ -49,8 +47,22 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
                     phon_file = lines[1].strip()
                     selected_feats = [line.strip() for line in lines[2:]]
 
+                    # Check if the model file exists
+                    if not os.path.exists(model):
+                        self.phonetFilePathLabel.setStyleSheet("color: red; font-size: 16px;")
+                        self.phonetFilePathLabel.setText("Model file not found.")
+                        return
+
+                    # Check if the phonological file exists
+                    if not os.path.exists(phon_file):
+                        self.phonologicalChartLabel.setStyleSheet("color: red; font-size: 16px;")
+                        self.phonologicalChartLabel.setText("Phonological file not found.")
+                        return
+
                     # Set values in the UI
+                    self.phonetFilePathLabel.setStyleSheet("color: black; font-size: 16px;")
                     self.phonetFilePathLabel.setText(model)
+                    self.phonologicalChartLabel.setStyleSheet("color: black; font-size: 16px;")
                     self.phonologicalChartLabel.setText(phon_file)
                     dictionary_str, dict_keys = self.extract_dictionary_keys(phon_file)
 
@@ -198,8 +210,8 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
 
     def runAlgo(self):
         # Output directory
-        directory = 'posterior_probs/'
-        os.makedirs(directory, exist_ok=True)
+        directory_output = 'posterior_probs/'
+        os.makedirs(directory_output, exist_ok=True)
         selected_phon_feat = [self.listOfPhonologicalFeatures.item(i).text()
                               for i in range(self.listOfPhonologicalFeatures.count())
                               if self.listOfPhonologicalFeatures.item(i).isSelected()]

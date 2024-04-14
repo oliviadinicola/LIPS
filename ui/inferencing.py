@@ -23,7 +23,7 @@ list_phonological = eval(list_phonological_str)
 
 wav_lab_dir = sys.argv[5]
 tgt_dir = sys.argv[5]
-feat_dir = sys.argv[5]
+feat_dir = 'posterior_probs/'
 phc = json.loads(sys.argv[3])
 
 files = os.listdir(wav_lab_dir)
