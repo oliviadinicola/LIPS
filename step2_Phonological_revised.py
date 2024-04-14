@@ -1,5 +1,6 @@
 
-# Gujarati feature set
+# This is an example using Gujarati feature set. Please edit this file (self.list_phonological) with the
+# feature set corresponding to your trained Phonet model.
 
 import numpy as np
 import pandas as pd
