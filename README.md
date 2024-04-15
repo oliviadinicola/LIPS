@@ -5,10 +5,10 @@ LIPS is a unified Python-based graphical user interface (GUI) to streamline the 
 
 ### About the Algorithms
 #### Kingston/HNR
-This algorithm is adapted from [Christian DiCanio's lenition algorithm](https://www.acsu.buffalo.edu/~cdicanio/scripts/Kingston_lenition_2.praat). It calculates HNR, a measure that quantifies the level of additional noise present in the vocal signal. Essentially, the more lenited a segment, the more vowel-like it is, meaning a higher HNR. It also calculates measures used by John Kingston in his [paper](http://www.lingref.com/cpp/lasp/3/paper1711.pdf): intensity difference, mean intensity, and relative duration.
+This algorithm is adapted from [Christian DiCanio's lenition algorithm](https://www.acsu.buffalo.edu/~cdicanio/scripts/Kingston_lenition_2.praat). It calculates HNR, a measure that quantifies the level of additional noise present in the vocal signal. Essentially, the more lenited a segment, the more vowel-like it is, meaning a higher HNR. It also calculates measures used by John Kingston in his [paper](http://www.lingref.com/cpp/lasp/3/paper1711.pdf): intensity difference, mean intensity, and relative duration. The algorithm used in this toolkit can be found at `ui/lenition_2nd_1_KTOneBand.praat`.
 
 #### Inferencing
-This algorithm is used for the inferencing process after training a [Phonet](https://github.com/jcvasquezc/phonet) model. You will use the output Phonet model and corresponding phonological feature file as input to this algorithm (more information below).
+This algorithm is used for the inferencing process after training a [Phonet](https://github.com/jcvasquezc/phonet) model. You will use the output Phonet model and corresponding phonological feature file as input to this algorithm (more information below). The algorithm used in this tookit can be found at `ui/inferencing.py`.
 
 ## Installation
 Either clone the [git](https://git-scm.com/) repository:
@@ -37,6 +37,14 @@ Download [Pycharm Community Edition](https://www.jetbrains.com/pycharm/download/
 * `output/`: where the results from the Kingston/HNR and inferencing algorithm will be saved to
 * `saved_parameters_hnr/`: where any parameters are saved from the user clicking the "Save Parameters" button on the Kingston/HNR algorithm page
 * `saved_parameters_inference/`: where any parameters are saved from the user clicking the "Save Parameters" button on the Inferencing algorithm page
+* `homePageUI.ui`: contains the UI design for the home page
+* `homePageUI.py`: contains the Python code for the home page features
+* `loadFilesUI.ui`: contains the UI design for the load files page
+* `loadFilesUI.py`: contains the Python code for the load files page
+* `HnrKingstonUI.ui`: contains the UI design for the HNR/Kingston algorithm page
+* `HnrKingstonUI.py`: contains the Python code for the HNR/Kingston algorithm page
+* `InferencingUI.ui`: contains the UI design for the inferencing algorithm page
+* `InferencingUI.py`: contains the Python code for the inferencing algorithm page
 
 ### `test_data/` Folder
 This folder contains sample test data for you to experiment with. However, you can use your own data as well that is saved in any location on your computer as long as the audio files have a `.wav` extension and textgrids have a `.TextGrid` extension.
