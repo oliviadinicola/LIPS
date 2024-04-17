@@ -19,6 +19,8 @@ from PyQt5.QtCore import Qt
 
 
 class Ui_InferencingPage(QtWidgets.QMainWindow):
+
+    #sets up UI for Inferencing Page
     def setupUi(self):
         uic.loadUi('InferencingUI.ui', self)
         self.uploadPhonetFilesButton.clicked.connect(self.openFolderDialog)
@@ -31,8 +33,8 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
         self.show()
 
     def loadParams(self):
-        # Get the file path selected by the user
 
+        # Get the file path selected by the user
         file_path, _ = QFileDialog.getOpenFileName(self, "Open File", "", "Text Files (*.txt)")
 
         # Check if a file was selected
@@ -66,6 +68,7 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
                     self.phonologicalChartLabel.setText(phon_file)
                     dictionary_str, dict_keys = self.extract_dictionary_keys(phon_file)
 
+                    #shows list of phonological features
                     if dictionary_str and dict_keys:
                         self.listOfPhonologicalFeatures.clear()
                         for key in dict_keys:
@@ -77,15 +80,21 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
                     if model and phon_file and selected_feats:
                         self.enableRunButton(True)
                 else:
+                    #error for invalid input
                     QMessageBox.warning(self, "Error", "Invalid parameter file format.")
 
+    #function to save user parameters
     def saveParams(self):
+        #getting values from user input
         model = self.phonetFilePathLabel.text()
         phon_file = self.phonologicalChartLabel.text()
         selected_feat = [item.text() for item in self.listOfPhonologicalFeatures.selectedItems()]
 
+        #appends date and time to file name
         current_time = datetime.datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
         file_path = "saved_parameters_inference/parameters_" + current_time + ".txt"
+
+        #writes parameters to txt file
         with open(file_path, 'w') as file:
             file.write(model + "\n")
             file.write(phon_file + "\n")
@@ -93,9 +102,11 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
                 file.write(feat + "\n")
         self.saveParamsLabel_3.setText(f"Parameters saved to {file_path}")
 
+    #allows run button to be pressed
     def enableRunButton(self, enable):
         self.runAlgoButton.setEnabled(enable)
 
+    #opens file explorer for user to upload folders
     def openFolderDialog(self):
         folderpath = QtWidgets.QFileDialog.getExistingDirectory(self, 'Select Folder')
         # Check if the 'MT' directory exists inside the selected directory
@@ -157,7 +168,9 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
             if self.phonologicalChartLabel.text() != "File must contain a valid dictionary. Please upload again.":
                 self.enableRunButton(True)
 
+    #function for user to upload phonological feature chart
     def openPhonological(self):
+        #opens File Explorer and filters by python files
         fname = QFileDialog.getOpenFileName(self, "Open File", "", "*.py")
         try:
             dictionary_str, dict_keys = self.extract_dictionary_keys(fname[0])
@@ -166,9 +179,12 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
                 self.phonologicalChartLabel.setStyleSheet("color: black; font-size: 16px;")
                 self.phonologicalChartLabel.setText(fname[0])
                 self.listOfPhonologicalFeatures.clear()
+                #adds phonological features from file to list
                 for key in dict_keys:
                     self.listOfPhonologicalFeatures.addItem(key)
                 self.listOfPhonologicalFeatures.show()
+
+                #selects sonorant and continuant by default
                 self.select_items(["sonorant", "continuant"])
                 if "Please upload again" not in self.phonetFilePathLabel.text():
                     self.enableRunButton(True)
@@ -185,6 +201,7 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
             self.listOfPhonologicalFeatures.clear()
             self.enableRunButton(False)
 
+    #selects phonological features
     def select_items(self, items_to_select):
         for item_text in items_to_select:
             items = self.listOfPhonologicalFeatures.findItems(item_text, Qt.MatchExactly)
@@ -192,6 +209,7 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
                 item = items[0]
                 item.setSelected(True)
 
+    #extracts the dictionary keys from the phonological feature chart
     def extract_dictionary_keys(self, file_path):
         with open(file_path, 'r', encoding='utf-8') as file:
             code = file.read()
@@ -207,7 +225,7 @@ class Ui_InferencingPage(QtWidgets.QMainWindow):
         else:
             return []
 
-
+    #function to run algorithm, called from "Run Algorithm" button
     def runAlgo(self):
         # Output directory
         directory_output = 'posterior_probs/'
