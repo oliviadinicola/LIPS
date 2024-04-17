@@ -18,6 +18,8 @@ from ui.loadFilesUI import Ui_loadFilesPage
 
 
 class Ui_loadHomePage(QtWidgets.QMainWindow):
+
+    #sets up UI for Home Page
     def setupUi(self):
         uic.loadUi('homePageUI.ui', self)
         self.show()
@@ -28,14 +30,17 @@ class Ui_loadHomePage(QtWidgets.QMainWindow):
         self.errorMessageLabelInferencing.setStyleSheet("color: red; font-size: 14px;")
         self.clearFilesButton.clicked.connect(self.clearFiles)
 
+        #removes uploaded files folder if it already exists
         if os.path.exists("uploaded_files/"):
             shutil.rmtree("uploaded_files/")
 
+    #clears files from Home Page and uploaded files folder
     def clearFiles(self):
         self.listOfFiles.clear()
         if os.path.exists("uploaded_files/"):
             shutil.rmtree("uploaded_files/")
 
+    #opens Load Files Page
     def openLoadFilesWindow(self):
         self.errorMessageLabelHNR.setText("")
         self.errorMessageLabelInferencing.setText("")
@@ -44,6 +49,7 @@ class Ui_loadHomePage(QtWidgets.QMainWindow):
         self.ui.setupUi()
         self.ui.filesSelected.connect(self.displaySelectedFiles)
 
+    #opens Hnr/Kingston Page
     def openHnrKingstonWindow(self):
         if self.listOfFiles.count() >= 2:
             self.errorMessageLabelHNR.setText("")
@@ -54,6 +60,7 @@ class Ui_loadHomePage(QtWidgets.QMainWindow):
             # Error handling
             self.errorMessageLabelHNR.setText("Please upload files before running algorithm!")
 
+    #opens Inferencing Page
     def openInferencingWindow(self):
         if self.listOfFiles.count() >= 2:
             self.errorMessageLabelInferencing.setText("")
@@ -64,7 +71,7 @@ class Ui_loadHomePage(QtWidgets.QMainWindow):
             # Error handling
             self.errorMessageLabelInferencing.setText("Please upload files before running algorithm!")
 
-
+    #displays files that have been uploaded on Load Files Page
     def displaySelectedFiles(self, files):
         self.output_directory = "uploaded_files"  # Define the output directory
 
@@ -81,10 +88,12 @@ class Ui_loadHomePage(QtWidgets.QMainWindow):
             except Exception as e:
                 print(f"Error saving file: {e}")
 
+        #adds file to list widget on Home Page
         for file_path in files:
             if not self.item_exists(file_path):
                 self.listOfFiles.addItem(file_path)
 
+    #checks if an item exists in the list of files widget
     def item_exists(self, item_text):
         items = self.listOfFiles.findItems(item_text, Qt.MatchExactly)
         return bool(items)
