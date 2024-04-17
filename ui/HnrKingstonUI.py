@@ -20,6 +20,7 @@ import parselmouth
 
 
 class Ui_HnrKingstonPage(QtWidgets.QMainWindow):
+    #sets up ui for Hnr/Kingston Page
     def setupUi(self):
         uic.loadUi('HnrKingstonUI.ui', self)
         self.show()
@@ -32,7 +33,9 @@ class Ui_HnrKingstonPage(QtWidgets.QMainWindow):
         self.loadParametersButton.clicked.connect(self.loadParams)
         self.select_option_labeled("2")
 
+    #saves user parameters entered
     def saveParams(self):
+        #getting values from input widgets
         f0min = self.f0MinimumInput.text()
         timeOffset = self.timeOffsetInput.text()
         smoothProp = self.smoothProportionInput.text()
@@ -44,8 +47,11 @@ class Ui_HnrKingstonPage(QtWidgets.QMainWindow):
         lexicalTier = self.lexicalTierComboBox.currentText()
         labeledTier = self.labeledTierComboBox.currentText()
 
+        #appends date and time to file name
         current_time = datetime.datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
         file_path = "saved_parameters_hnr/parameters_" + current_time + ".txt"
+
+        #writes parameters to txt file, separated by new lines
         with open(file_path, 'w') as file:
             file.write(f0min + "\n")
             file.write(timeOffset + "\n")
@@ -59,8 +65,11 @@ class Ui_HnrKingstonPage(QtWidgets.QMainWindow):
             file.write(labeledTier + "\n")
         self.saveParamsLabel.setText(f"Parameters saved to {file_path}")
 
+    #load parameter txt file
     def loadParams(self):
+        #file dialog to select desired parameter file
         fname, _ = QFileDialog.getOpenFileName(self, "Open File", "saved_parameters_hnr/", "Text File (*.txt)")
+        #reads values from file and fills in input widgets
         with open(fname, 'r') as file:
             lines = file.readlines()
             if lines:
@@ -75,9 +84,11 @@ class Ui_HnrKingstonPage(QtWidgets.QMainWindow):
                 self.select_option_lexical(lines[8].strip())
                 self.select_option_labeled(lines[9].strip())
 
+    #validates input types and ranges
     def validateInputs(self):
         invalid_inputs = []
 
+        #defining the type of value and range for each variable
         validators = {
             self.f0MinimumInput: (QDoubleValidator(0, 500, 1000), "Integer/Decimal between 0 and 500"),
             self.timeOffsetInput: (QDoubleValidator(0, 1000, 1000), "Integer/Decimal between 0 and 1000"),
@@ -90,13 +101,15 @@ class Ui_HnrKingstonPage(QtWidgets.QMainWindow):
         # Store references to input widgets in a list
         input_widgets = [self.f0MinimumInput, self.timeOffsetInput, self.smoothProportionInput, self.outputFileNameInput, self.leftRangeInput, self.rightRangeInput, self.lowPassFilterInput]
 
-
+        #iterates through validators
         for input_widget, (validator, valid_range) in validators.items():
             state, _, _ = validator.validate(input_widget.text(), 0)
 
+            #adds incorrect inputs to a list
             if state != validator.Acceptable:
                 invalid_inputs.append(f"{input_widget.objectName()} ({valid_range})")
 
+        #ensures segment file is uploaded
         if self.segmentFileLabel.text() == '':
             QMessageBox.warning(self, "Validation Result",
                                 f"Please upload a segment file")
@@ -105,10 +118,12 @@ class Ui_HnrKingstonPage(QtWidgets.QMainWindow):
         lexicalTierValue = self.lexicalTierComboBox.currentText()
         labeledTierValue = self.labeledTierComboBox.currentText()
 
+        #making sure comboboxes are two different values
         if lexicalTierValue == labeledTierValue:
             QMessageBox.warning(self, "Validation Result", "Lexical and Labeled Tiers cannot have the same value")
             return False
 
+        #pop up shows user which inputs are incorrect
         if invalid_inputs:
             QMessageBox.warning(self, "Validation Result",
                                 f"Please enter valid inputs for: {', '.join(invalid_inputs)}.")
@@ -116,26 +131,31 @@ class Ui_HnrKingstonPage(QtWidgets.QMainWindow):
         else:
             return True
 
+    #function to select labeled tier combobox value
     def select_option_labeled(self, option_text):
         index = self.labeledTierComboBox.findText(option_text)
         if index != -1:
             self.labeledTierComboBox.setCurrentIndex(index)
 
+    #function to select lexical tier combobox value
     def select_option_lexical(self, option_text):
         index = self.lexicalTierComboBox.findText(option_text)
         if index != -1:
             self.lexicalTierComboBox.setCurrentIndex(index)
 
+    #opens file dialog to select segment file
     def openSegmentDialog(self):
         fname = QFileDialog.getOpenFileName(self, "Open File", "", "Text Files (*.txt)")
         self.segmentFileLabel.setText(fname[0])
 
+    #cancel button close window
     def handleCancel(self):
         self.close()
 
+    #function to run algorithm, called from "Run Algorithm" button
     def runScript(self):
+        #validating input before algorithm is run
         if self.validateInputs() == True:
-
             # Get input values
             f0 = float(self.f0MinimumInput.text())
             time_offset = float(self.timeOffsetInput.text())
@@ -148,8 +168,6 @@ class Ui_HnrKingstonPage(QtWidgets.QMainWindow):
             labeled_tier = self.labeledTierComboBox.currentText()
             directory = 'uploaded_files/'
             segment_file_name = self.segmentFileLabel.text()
-
-            # self.output_directory = "uploaded_files"  # Define the output directory
 
             # Create the output directory if it doesn't exist
             os.makedirs(directory, exist_ok=True)
@@ -193,6 +211,7 @@ class Ui_HnrKingstonPage(QtWidgets.QMainWindow):
             QMessageBox.information(self, "Algorithm Completed",
                                     "The algorithm is done. Output is saved to the output/ folder.")
 
+            #close window when algorithm finishes running
             self.close()
 
 if __name__ == "__main__":
