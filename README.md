@@ -49,6 +49,8 @@ Download [Pycharm Community Edition](https://www.jetbrains.com/pycharm/download/
 ### `test_data/` Folder
 This folder contains sample test data for you to experiment with. However, you can use your own data as well that is saved in any location on your computer as long as the audio files have a `.wav` extension and textgrids have a `.TextGrid` extension.
 
+This folder also contains an example segment file that is used in the Kingston/HNR algorithm: `segment_example.txt`. Ensure that the segment file you upload for this algorithm has each segment on a new line as demonstrated in this example file.
+
 ### `example_gujarati_model/` Folder
 This contains an example model trained through Phonet on the Gujarati language to use for the inferencing algorithm. You can use any Phonet model that you have previously trained. However, as seen with this example model, ensure the directory contains both an `MT/` directory and `phonemes/` directory.
 
