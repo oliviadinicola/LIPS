@@ -35,7 +35,7 @@ Download [Pycharm Community Edition](https://www.jetbrains.com/pycharm/download/
 
 ### `ui/` Folder Structure
 * `output/`: where the results from the Kingston/HNR and inferencing algorithm will be saved to
-* `saved_parameters_hnr/`: where any parameters are saved from the user clicking the "Save Parameters" button on the Kingston/HNR algorithm page
+* `saved_parameters_hnr/`: where any parameters are saved from the user clicking the "Save Parameters" button on the Kingston/HNR algorithm page. We provide you with a `default.txt` file with some example parameters you can use.
 * `saved_parameters_inference/`: where any parameters are saved from the user clicking the "Save Parameters" button on the Inferencing algorithm page
 * `homePageUI.ui`: contains the UI design for the home page
 * `homePageUI.py`: contains the Python code for the home page features
