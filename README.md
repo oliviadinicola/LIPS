@@ -67,4 +67,4 @@ This contains an example model trained through Phonet on the Gujarati language t
 **InferencingUI:**
 ![image](https://github.com/oliviadinicola/LIPS/assets/67873975/1c9f78b7-f448-4adb-823c-2afe5491e392)
 
-
+*For more detailed information, you can view our full [documentation.](https://docs.google.com/document/d/1cFr7PB7lrnbY9Zepxrv1xTbbsnFbnMIAqTUB4PqhXvY/edit?usp=sharing)*
