@@ -47,7 +47,7 @@ Download [Pycharm Community Edition](https://www.jetbrains.com/pycharm/download/
 * `InferencingUI.py`: contains the Python code for the inferencing algorithm page
 
 ### `test_data/` Folder
-This folder contains sample test data for you to experiment with. However, you can use your own data as well that is saved in any location on your computer as long as the audio files have a `.wav` extension and textgrids have a `.TextGrid` extension.
+This folder contains sample test data for you to experiment with. However, you can use your own data as well that is saved in any location on your computer as long as the audio files have a `.wav` extension and textgrids have a `.TextGrid` extension. All textgrids must have only 2 tiers: a 'lexical' (word) tier and a 'labeled' (phone) tier.
 
 This folder also contains an example segment file that is used in the Kingston/HNR algorithm: `segment_example.txt`. Ensure that the segment file you upload for this algorithm has each segment on a new line as demonstrated in this example file.
 
