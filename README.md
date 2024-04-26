@@ -24,7 +24,7 @@ See `requirements.txt` for the full list of requirements. The best way to instal
 
     python3 -m venv <name_of_venv>
     source <name_of_venv>/bin/activate
-    pip install -r requirements.txt`
+    pip install -r requirements.txt
 
 ## Project Structure & Software Implementation
 All source code can be found in the `ui/` folder. The GUI is run using Python scripts with Python 3.8.3.
