@@ -29,7 +29,7 @@ See `requirements.txt` for the full list of requirements. The best way to instal
 ## Project Structure & Software Implementation
 All source code can be found in the `ui/` folder. The GUI is run using Python scripts with Python 3.8.3.
 
-Download [Pycharm Community Edition](https://www.jetbrains.com/pycharm/download/?section=windows) and open the location of this cloned repository in it. From here, you can run the `ui/homePageUI.py` file to start the GUI!
+Run `python homePageUI.py` from the command line to start the GUI!
 
 *Please note: if you are wanting to run the inferencing algorithm, make sure you name your phonological features file `step2_Phonological_revised.py` as seen in the example file provided in `LIPS/`. We recommend you edit or make a copy of this existing file to suit your phonological features.*
 
