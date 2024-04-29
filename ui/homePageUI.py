@@ -12,9 +12,9 @@ from PyQt5 import QtWidgets, uic, Qt
 import os
 from PyQt5.QtCore import Qt
 
-from ui.HnrKingstonUI import Ui_HnrKingstonPage
-from ui.InferencingUI import Ui_InferencingPage
-from ui.loadFilesUI import Ui_loadFilesPage
+from HnrKingstonUI import Ui_HnrKingstonPage
+from InferencingUI import Ui_InferencingPage
+from loadFilesUI import Ui_loadFilesPage
 
 
 class Ui_loadHomePage(QtWidgets.QMainWindow):
